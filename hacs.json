@@ -1,10 +1,9 @@
 {
-    "name": "Integration blueprint",
+    "name": "Tauron Outages",
     "hacs": "1.6.0",
     "domains": [
         "binary_sensor",
-        "sensor",
-        "switch"
+        "sensor"
     ],
     "homeassistant": "2021.9.0"
 }

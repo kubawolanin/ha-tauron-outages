@@ -1,0 +1,12 @@
+{
+  "domain": "tauron_outages",
+  "name": "Tauron Outages",
+  "documentation": "https://github.com/kubawolanin/ha-tauron_outages",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/kubawolanin/ha-tauron_outages/issues",
+  "version": "0.0.0",
+  "config_flow": true,
+  "codeowners": [
+    "@kubawolanin"
+  ]
+}

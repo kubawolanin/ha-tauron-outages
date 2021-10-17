@@ -1,0 +1,32 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Tauron Outages",
+                "description": "If you need help with the configuration have a look here: https://github.com/kubawolanin/ha-tauron-outages",
+                "data": {
+                    "latitude": "Latitude",
+                    "longitude": "Longitude"
+                }
+            }
+        },
+        "error": {
+            "street_gaid": "Error fetching Street Gaid from Tauron IAPI",
+            "city_gaid": "Error fetching City Gaid from Tauron IAPI",
+            "reverse_geocode": "Latitude/Longitude is wrong or there's an error fetching reverse geocode information from nominatim.openstreetmap.org"
+        },
+        "abort": {
+            "single_instance_allowed": "Only a single instance is allowed."
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "binary_sensor": "Binary sensor enabled",
+                    "sensor": "Sensor enabled"
+                }
+            }
+        }
+    }
+}

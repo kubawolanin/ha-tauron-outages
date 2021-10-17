@@ -1,23 +1,23 @@
 """
-Custom integration to integrate integration_blueprint with Home Assistant.
+Custom integration to integrate tauron_outages with Home Assistant.
 
 For more details about this integration, please refer to
-https://github.com/custom-components/integration_blueprint
+https://github.com/kubawolanin/ha-tauron-outages
 """
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import IntegrationBlueprintApiClient
+from .api import TauronOutagesApiClient
 from .const import (
-    CONF_PASSWORD,
-    CONF_USERNAME,
+    CONF_LONGITUDE,
+    CONF_LATITUDE,
     DOMAIN,
     LOGGER,
     PLATFORMS,
     STARTUP_MESSAGE,
 )
-from .coordinator import BlueprintDataUpdateCoordinator
+from .coordinator import TauronOutagesDataUpdateCoordinator
 
 
 async def async_setup_entry(
@@ -28,13 +28,13 @@ async def async_setup_entry(
     LOGGER.info(STARTUP_MESSAGE)
     hass.data.setdefault(DOMAIN, {})
 
-    api_client = IntegrationBlueprintApiClient(
-        username=entry.data[CONF_USERNAME],
-        password=entry.data[CONF_PASSWORD],
+    api_client = TauronOutagesApiClient(
+        latitude=entry.data[CONF_LATITUDE],
+        longitude=entry.data[CONF_LONGITUDE],
         session=async_get_clientsession(hass),
     )
 
-    coordinator = BlueprintDataUpdateCoordinator(hass, api=api_client)
+    coordinator = TauronOutagesDataUpdateCoordinator(hass, api=api_client)
     await coordinator.async_config_entry_first_refresh()
 
     hass.data[DOMAIN][entry.entry_id] = coordinator

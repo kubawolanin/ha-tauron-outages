@@ -1,11 +1,11 @@
-"""Binary sensor platform for integration_blueprint."""
+"""Binary sensor platform for tauron_outages."""
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import BINARY_SENSOR, BINARY_SENSOR_DEVICE_CLASS, DEFAULT_NAME, DOMAIN
-from .entity import IntegrationBlueprintEntity
+from .entity import TauronOutagesEntity
 
 
 async def async_setup_entry(
@@ -15,11 +15,11 @@ async def async_setup_entry(
 ) -> None:
     """Setup binary_sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    async_add_devices([IntegrationBlueprintBinarySensor(coordinator)])
+    async_add_devices([TauronOutagesBinarySensor(coordinator)])
 
 
-class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorEntity):
-    """integration_blueprint binary_sensor class."""
+class TauronOutagesBinarySensor(TauronOutagesEntity, BinarySensorEntity):
+    """tauron_outages binary_sensor class."""
 
     _attr_name = f"{DEFAULT_NAME}_{BINARY_SENSOR}"
     _attr_device_class = BINARY_SENSOR_DEVICE_CLASS

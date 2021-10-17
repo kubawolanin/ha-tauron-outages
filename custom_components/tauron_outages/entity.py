@@ -1,4 +1,4 @@
-"""BlueprintEntity class"""
+"""TauronOutagesEntity class"""
 from __future__ import annotations
 
 from typing import Any
@@ -6,14 +6,14 @@ from typing import Any
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .coordinator import BlueprintDataUpdateCoordinator
+from .coordinator import TauronOutagesDataUpdateCoordinator
 from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
 
 
-class IntegrationBlueprintEntity(CoordinatorEntity):
-    """Base IntegrationBlueprint entity."""
+class TauronOutagesEntity(CoordinatorEntity):
+    """Base TauronOutages entity."""
 
-    coordinator: BlueprintDataUpdateCoordinator
+    coordinator: TauronOutagesDataUpdateCoordinator
 
     @property
     def unique_id(self) -> str | None:
