@@ -8,10 +8,11 @@ import ssl
 
 import aiohttp
 import async_timeout
+import requests
 from requests import adapters
 from urllib3 import poolmanager
 
-from .const import LOGGER, REVERSE_GEOCODE_URL, POWER_URL
+from .const import LOGGER, REVERSE_GEOCODE_URL, POWER_URL, HEAT_URL
 
 API_HEADERS = {aiohttp.hdrs.CONTENT_TYPE: "application/json; charset=UTF-8"}
 
@@ -42,8 +43,7 @@ class TauronOutagesApiClient:
     async def async_get_city_gaid(self, reverse_geocode) -> dict[str, Any]:
         """Get City Gaid"""
         postcode = reverse_geocode.get("address").get("postcode")
-        get_cities_url = f"https://jsonplaceholder.typicode.com/posts/1"
-        # get_cities_url = f"{POWER_URL}city/GetCities?partName={postcode}"
+        get_cities_url = f"{POWER_URL}city/GetCities?partName={postcode}"
         return await self.api_wrapper("get", get_cities_url)
 
     async def async_get_street_gaid(self, reverse_geocode, city_gaid) -> dict[str, Any]:
@@ -55,9 +55,14 @@ class TauronOutagesApiClient:
         )
         return await self.api_wrapper("get", get_streets_url)
 
-    async def async_get_data(self, street_gaid) -> dict[str, Any]:
-        """Get data from the Outages API."""
+    async def async_get_power_outage_data(self, street_gaid) -> dict[str, Any]:
+        """Get data from the Power Outages API."""
         get_outages_url = f"{POWER_URL}outage/GetOutages?gaid={street_gaid}&type=street"
+        return await self.api_wrapper("get", get_outages_url)
+
+    async def async_get_heat_outage_data(self, street_gaid) -> dict[str, Any]:
+        """Get data from the Heat Outages API."""
+        get_outages_url = f"{HEAT_URL}outage/GetOutages?gaid={street_gaid}&type=street"
         return await self.api_wrapper("get", get_outages_url)
 
     async def api_wrapper(

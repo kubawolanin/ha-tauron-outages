@@ -35,8 +35,8 @@ class TauronOutagesDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self) -> dict[str, Any]:
         """Update data via library."""
         try:
-            return await self.api.async_get_data(
-                self.config_entry.data.get(CONF_STREET_GAID)
+            return await self.api.async_get_power_outage_data(
+                self.config_entry.data[CONF_STREET_GAID]
             )
         except ApiClientException as exception:
             raise UpdateFailed(exception) from exception

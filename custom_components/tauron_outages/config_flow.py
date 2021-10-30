@@ -49,8 +49,7 @@ class TauronOutagesFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 city_gaid_response = await self._get_city_gaid(client, reverse_geocode)
 
                 if city_gaid_response:
-                    # city_gaid = city_gaid_response[0]["Gaid"]
-                    city_gaid = city_gaid_response.get("userId")
+                    city_gaid = city_gaid_response[0]["Gaid"]
                     LOGGER.info(city_gaid)
                     user_input[CONF_CITY_GAID] = city_gaid
                     street_gaid_response = await self._get_street_gaid(
@@ -58,12 +57,11 @@ class TauronOutagesFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     )
 
                     if street_gaid_response:
-                        street_gaid = street_gaid_response.get("userId")
-                        # street_gaid = street_gaid_response[0].get("Gaid")
+                        street_gaid = street_gaid_response[0]["Gaid"]
                         LOGGER.info(street_gaid)
                         user_input[CONF_STREET_GAID] = street_gaid
                         return self.async_create_entry(
-                            title=reverse_geocode.get("address").get("road"),
+                            title=reverse_geocode["address"]["road"],
                             data=user_input,
                         )
                     else:

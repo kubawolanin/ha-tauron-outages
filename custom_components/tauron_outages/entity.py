@@ -7,7 +7,16 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .coordinator import TauronOutagesDataUpdateCoordinator
-from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
+from .const import (
+    ATTRIBUTION,
+    DOMAIN,
+    NAME,
+    VERSION,
+    CONFIGURATION_URL,
+    CONF_REVERSE_GEOCODE,
+    RESPONSE_CURRENT_OUTAGES,
+    RESPONSE_FUTURE_OUTAGES,
+)
 
 
 class TauronOutagesEntity(CoordinatorEntity):
@@ -24,11 +33,18 @@ class TauronOutagesEntity(CoordinatorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
+        road = (
+            self.coordinator.config_entry.data[CONF_REVERSE_GEOCODE]
+            .get("address")
+            .get("road")
+        )
         return DeviceInfo(
             identifiers={(DOMAIN, self.unique_id)},
-            name=NAME,
+            name=road,
             model=VERSION,
             manufacturer=NAME,
+            configuration_url=CONFIGURATION_URL,
+            attribution=ATTRIBUTION,
         )
 
     @property
@@ -36,6 +52,7 @@ class TauronOutagesEntity(CoordinatorEntity):
         """Return the state attributes."""
         return {
             "attribution": ATTRIBUTION,
-            "id": str(self.coordinator.data.get("id")),
+            "current_outages": str(self.coordinator.data.get(RESPONSE_CURRENT_OUTAGES)),
+            "future_outages": str(self.coordinator.data.get(RESPONSE_FUTURE_OUTAGES)),
             "integration": DOMAIN,
         }

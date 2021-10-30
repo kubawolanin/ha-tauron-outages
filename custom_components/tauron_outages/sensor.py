@@ -5,7 +5,7 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
-from .const import DEFAULT_NAME, DOMAIN, ICON, SENSOR
+from .const import LOGGER, DEFAULT_NAME, DOMAIN, ICON, SENSOR, CONF_REVERSE_GEOCODE
 from .entity import TauronOutagesEntity
 
 
@@ -28,4 +28,9 @@ class TauronOutagesSensor(TauronOutagesEntity, SensorEntity):
     @property
     def native_value(self) -> StateType:
         """Return the state of the sensor."""
-        return self.coordinator.data.get("address").get("postcode")
+        LOGGER.info(self.coordinator.data)
+        return (
+            self.coordinator.config_entry.data[CONF_REVERSE_GEOCODE]
+            .get("address")
+            .get("postcode")
+        )

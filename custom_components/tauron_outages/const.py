@@ -8,6 +8,7 @@ DOMAIN = "tauron_outages"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
 ATTRIBUTION = "Data provided by TAURON Dystrybucja and TAURON Ciepło IAPI."
+CONFIGURATION_URL = "https://www.tauron-dystrybucja.pl/wylaczenia/"
 ISSUE_URL = "https://github.com/kubawolanin/ha-tauron-outages/issues"
 DATA_COORDINATOR_UPDATE_INTERVAL = timedelta(hours=6)
 LOGGER: Logger = getLogger(__package__)
@@ -16,13 +17,14 @@ LOGGER: Logger = getLogger(__package__)
 ICON = "mdi:format-quote-close"
 
 # Device classes
-BINARY_SENSOR_DEVICE_CLASS = "connectivity"
+BINARY_SENSOR_DEVICE_CLASS = "power"
 
 # Platforms
 BINARY_SENSOR = "binary_sensor"
 SENSOR = "sensor"
 PLATFORMS = [BINARY_SENSOR, SENSOR]
 
+OUTAGE_TYPE_MAP = {1: "unplanned", 2: "planned"}
 
 # Configuration and options
 CONF_ENABLED = "enabled"
@@ -37,6 +39,9 @@ REVERSE_GEOCODE_URL = (
 )
 POWER_URL = "https://www.tauron-dystrybucja.pl/iapi/"
 HEAT_URL = "https://www.tauron-cieplo.pl/iapi/"
+
+RESPONSE_CURRENT_OUTAGES = "CurrentOutagePeriods"
+RESPONSE_FUTURE_OUTAGES = "FutureOutagePeriods"
 
 # Defaults
 DEFAULT_NAME = DOMAIN

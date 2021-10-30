@@ -24,7 +24,7 @@ async def test_api(hass, aioclient_mock):
     aioclient_mock.get(
         "https://jsonplaceholder.typicode.com/posts/1", json={"test": "test"}
     )
-    assert await api.async_get_data() == {"test": "test"}
+    assert await api.async_get_power_outage_data() == {"test": "test"}
 
     # We do the same for `async_set_title`. Note the difference in the mock call
     # between the previous step and this one. We use `patch` here instead of `get`
